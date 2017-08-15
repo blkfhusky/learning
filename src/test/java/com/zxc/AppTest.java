@@ -7,11 +7,7 @@ import junit.framework.TestSuite;
 /**
  * Unit test for simple App.
  * 单元测试
-<<<<<<< HEAD
  * dev测试
-=======
- * dev1修改
->>>>>>> dev1
  */
 public class AppTest 
     extends TestCase
