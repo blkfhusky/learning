@@ -9,7 +9,7 @@
 
   <name>learning</name>
   <url>http://maven.apache.org</url>
-
+  <!--这是注释-->
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
