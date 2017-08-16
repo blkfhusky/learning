@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/learning.iml" filepath="$PROJECT_DIR$/learning.iml" />
+      <module fileurl="file://D:\workspace\intellij\learning\learning.iml" filepath="D:\workspace\intellij\learning\learning.iml" />
     </modules>
   </component>
 </project>
