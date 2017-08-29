@@ -5,7 +5,7 @@
              typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath"
              targetNamespace="http://www.activiti.org/processdef">
     <process id="dogeProcess" name="DogeProcess" isExecutable="true">
-        <startEvent id="startEvent1"></startEvent>
+        <startEvent id="startEvent1"/>
         <subProcess id="sid-1AA38D08-310B-4BFE-A6AD-F32488643000" name="subProcess">
             <multiInstanceLoopCharacteristics isSequential="false" flowable:collection="photos"
                                               flowable:elementVariable="photo"/>
