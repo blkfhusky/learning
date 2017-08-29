@@ -23,6 +23,13 @@
         </dependency>
 
         <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-engine</artifactId>
+            <version>6.0.0</version>
+        </dependency>
+
+
+        <dependency>
             <groupId>org.flowable</groupId>
             <artifactId>flowable-spring</artifactId>
             <version>6.1.2</version>
