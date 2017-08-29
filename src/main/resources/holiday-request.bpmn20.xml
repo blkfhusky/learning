@@ -7,8 +7,7 @@
              targetNamespace="http://www.flowable.org/processdef">
 
     <process id="holidayRequest" name="Holiday Request" isExecutable="true">
-
-        <startEvent id="startEvent"/>
+        <startEvent id="startEvent" name="start" flowable:initiator=""/>
         <sequenceFlow sourceRef="startEvent" targetRef="approveTask"/>
 
         <userTask id="approveTask" name="Approve or reject request" flowable:candidateGroups="managers"/>

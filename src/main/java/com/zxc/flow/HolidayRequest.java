@@ -1,12 +1,20 @@
 package com.zxc.flow;
 
+import org.flowable.bpmn.model.BpmnModel;
 import org.flowable.engine.*;
+import org.flowable.engine.history.HistoricActivityInstance;
 import org.flowable.engine.impl.cfg.StandaloneProcessEngineConfiguration;
 import org.flowable.engine.repository.Deployment;
 import org.flowable.engine.repository.ProcessDefinition;
 import org.flowable.engine.runtime.ProcessInstance;
 import org.flowable.engine.task.Task;
+import org.flowable.image.impl.DefaultProcessDiagramGenerator;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +42,9 @@ public class HolidayRequest {
         Deployment deployment = repositoryService.createDeployment()
                 .addClasspathResource("holiday-request.bpmn20.xml")
                 .deploy();
+        List<ProcessDefinition> processDefinitionList = repositoryService.createProcessDefinitionQuery().list();
+        System.out.println(processDefinitionList.size());
+
         //验证自定义流程已被流程引擎知晓
         ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
                 .deploymentId(deployment.getId())
@@ -70,16 +81,31 @@ public class HolidayRequest {
         param.put("employee", "CEO");
         taskService.complete(task.getId(), param);
         getTaskList(processEngine);
+
+        //获取执行历史
+        HistoryService historyService = processEngine.getHistoryService();
+        List<HistoricActivityInstance> list = historyService.createHistoricActivityInstanceQuery().
+                processInstanceId(processInstance.getId()).
+                finished().
+                orderByActivityId().
+                desc().
+                list();
+        for (HistoricActivityInstance instance : list) {
+            System.out.println("instance:" + instance.getActivityId() + ", name:" + instance.getActivityName() + ": " + instance.getDurationInMillis());
+        }
+
+        //生成流程图
+        getGraph(repositoryService, processDefinition.getId());
     }
 
     private static Task getTaskList(ProcessEngine processEngine) {
         TaskService taskService = processEngine.getTaskService();
         List<Task> list = taskService.createTaskQuery().list();
-        System.out.println("===== tasks =====");
+        System.out.println("===== tasks start =====");
         for (Task task : list) {
             System.out.println(task.getName());
         }
-        System.out.println("===== tasks =====");
+        System.out.println("===== tasks end =====");
         return list.size() > 0 ? list.get(0) : null;
     }
 
@@ -93,4 +119,37 @@ public class HolidayRequest {
         map.put("description", des);
         return map;
     }
+
+    /**
+     * 生成流程图
+     *
+     * @param repositoryService
+     */
+    private static void getGraph(RepositoryService repositoryService, String processDefinitionId) {
+        BpmnModel bpmnModel = repositoryService.getBpmnModel(processDefinitionId);
+        DefaultProcessDiagramGenerator generator = new DefaultProcessDiagramGenerator();
+        List<String> list = new ArrayList<>();
+        InputStream is = generator.generateDiagram(bpmnModel, "PNG", list);
+
+        try {
+            // 将输入流is写入文件输出流fos中
+            int ch;
+            OutputStream fos = new FileOutputStream("file-new.png");
+            try {
+                while ((ch = is.read()) != -1) {
+                    fos.write(ch);
+                }
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            } finally {
+                //关闭输入流等（略）
+                fos.close();
+                is.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

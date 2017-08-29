@@ -1,12 +1,5 @@
 package com.zxc;
 
-import com.zxc.multiThread.Single;
-
-import java.util.HashSet;
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.TimeUnit;
-
 /**
  * Hello world!
  */
