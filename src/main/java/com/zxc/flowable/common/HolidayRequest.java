@@ -1,4 +1,4 @@
-package com.zxc.flowable;
+package com.zxc.flowable.common;
 
 import org.flowable.bpmn.model.BpmnModel;
 import org.flowable.engine.*;

@@ -1,4 +1,4 @@
-package com.zxc.flowable;
+package com.zxc.flowable.common;
 
 /**
  * id: JY02341
