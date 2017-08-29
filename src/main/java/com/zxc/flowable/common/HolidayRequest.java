@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.zxc.flowable.util.FlowableUtil.getGraph;
+
 /**
  * id: JY02341
  * zhuxc@joyowo.com
@@ -118,38 +120,6 @@ public class HolidayRequest {
         map.put("nrOfHolidays", days);
         map.put("description", des);
         return map;
-    }
-
-    /**
-     * 生成流程图
-     *
-     * @param repositoryService
-     */
-    private static void getGraph(RepositoryService repositoryService, String processDefinitionId) {
-        BpmnModel bpmnModel = repositoryService.getBpmnModel(processDefinitionId);
-        DefaultProcessDiagramGenerator generator = new DefaultProcessDiagramGenerator();
-        List<String> list = new ArrayList<>();
-        InputStream is = generator.generateDiagram(bpmnModel, "PNG", list);
-
-        try {
-            // 将输入流is写入文件输出流fos中
-            int ch;
-            OutputStream fos = new FileOutputStream("file-new.png");
-            try {
-                while ((ch = is.read()) != -1) {
-                    fos.write(ch);
-                }
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            } finally {
-                //关闭输入流等（略）
-                fos.close();
-                is.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
 }
