@@ -6,24 +6,31 @@
              targetNamespace="http://www.activiti.org/processdef">
     <process id="dogeProcess" name="DogeProcess" isExecutable="true">
         <startEvent id="startEvent1"/>
+        <sequenceFlow id="sid-13DC3678-E57E-4E0B-9F80-55E11BF7304F" sourceRef="startEvent1"
+                      targetRef="sid-1AA38D08-310B-4BFE-A6AD-F32488643000"/>
+
         <subProcess id="sid-1AA38D08-310B-4BFE-A6AD-F32488643000" name="subProcess">
             <multiInstanceLoopCharacteristics isSequential="false" flowable:collection="photos"
                                               flowable:elementVariable="photo"/>
-            <serviceTask id="sid-FCFA0F9D-8796-43E2-ACFD-13AF3465F929" name="Send to photo processing service"
-                         flowable:expression="${photoService.processPhoto(photo.id)}"/>
+
             <startEvent id="sid-821438D0-CD00-43F1-A847-42112E44BA12"/>
-            <receiveTask id="wait" name="Wait for completion"/>
-            <endEvent id="sid-9BDA1151-ECDE-472B-A9E8-4F6A0E5C2901"/>
             <sequenceFlow id="sid-4B4908D7-A6A3-45B6-9267-D3C355154510"
                           sourceRef="sid-821438D0-CD00-43F1-A847-42112E44BA12"
                           targetRef="sid-FCFA0F9D-8796-43E2-ACFD-13AF3465F929"/>
+
+            <serviceTask id="sid-FCFA0F9D-8796-43E2-ACFD-13AF3465F929" name="Send to photo processing service"
+                         flowable:expression="${photoService.processPhoto(photo.id)}"/>
             <sequenceFlow id="sid-3667040B-ED6C-424E-BFAD-69718B40FD1C"
                           sourceRef="sid-FCFA0F9D-8796-43E2-ACFD-13AF3465F929" targetRef="wait"/>
+
+
+            <receiveTask id="wait" name="Wait for completion"/>
             <sequenceFlow id="sid-518F987E-BBEE-4565-BC94-00E02430E81A" sourceRef="wait"
                           targetRef="sid-9BDA1151-ECDE-472B-A9E8-4F6A0E5C2901"/>
+
+            <endEvent id="sid-9BDA1151-ECDE-472B-A9E8-4F6A0E5C2901"/>
         </subProcess>
-        <sequenceFlow id="sid-13DC3678-E57E-4E0B-9F80-55E11BF7304F" sourceRef="startEvent1"
-                      targetRef="sid-1AA38D08-310B-4BFE-A6AD-F32488643000"/>
+
         <boundaryEvent id="sid-CF518067-8143-4CC3-AE33-C3FE326E9EC3"
                        attachedToRef="sid-1AA38D08-310B-4BFE-A6AD-F32488643000" cancelActivity="true">
             <timerEventDefinition>
