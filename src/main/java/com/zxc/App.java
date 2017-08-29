@@ -1,18 +1,25 @@
 package com.zxc;
 
+import com.zxc.flowable.boot.PhotoService;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+
 /**
  * Hello world!
  */
+@SpringBootApplication
 public class App {
+
+    @Bean
+    CommandLineRunner init(final PhotoService photoService) {
+        return strings -> photoService.launchPhotoProcess("one", "two", "three");
+    }
+
+
     public static void main(String[] args) {
-        int a = 18;
-        fix01(a);
-        System.out.println(a);
-
+        SpringApplication.run(App.class, args);
     }
 
-    public static int fix01(int a) {
-        a = 10;
-        return a;
-    }
 }
