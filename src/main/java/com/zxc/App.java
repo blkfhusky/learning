@@ -14,7 +14,7 @@ public class App {
 
     @Bean
     CommandLineRunner init(final PhotoService photoService) {
-        return strings -> photoService.launchPhotoProcess("one", "two", "three");
+        return strings -> photoService.launchPhotoProcess("one", "two", "three", "four");
     }
 
 

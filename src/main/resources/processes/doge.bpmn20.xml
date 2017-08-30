@@ -11,7 +11,7 @@
 
         <subProcess id="sid-1AA38D08-310B-4BFE-A6AD-F32488643000" name="subProcess">
             <!--循环事件，遍历集合-->
-            <multiInstanceLoopCharacteristics isSequential="false" flowable:collection="photos"
+            <multiInstanceLoopCharacteristics isSequential="true" flowable:collection="photos"
                                               flowable:elementVariable="photo"/>
 
             <startEvent id="sid-821438D0-CD00-43F1-A847-42112E44BA12"/>
@@ -36,7 +36,7 @@
 
         <!--边界事件，当边界事件到达，计时器触发，10秒后终止后续操作-->
         <boundaryEvent id="sid-CF518067-8143-4CC3-AE33-C3FE326E9EC3"
-                       attachedToRef="sid-1AA38D08-310B-4BFE-A6AD-F32488643000" cancelActivity="true">
+                       attachedToRef="sid-1AA38D08-310B-4BFE-A6AD-F32488643000" cancelActivity="true" flowable:async="true">
             <timerEventDefinition>
                 <!--PnYnMnDTnHnMnS,
                 where nY is the number of years,
@@ -46,7 +46,7 @@
                 nH is the number of hours,
                 nM is the number of minutes,
                 and nS is the number of seconds-->
-                <timeDuration>PT10S</timeDuration>
+                <timeDuration>PT20S</timeDuration>
             </timerEventDefinition>
         </boundaryEvent>
         <sequenceFlow id="sid-F7745084-E689-431F-8F78-0FCAFE376EAE" sourceRef="sid-CF518067-8143-4CC3-AE33-C3FE326E9EC3"
@@ -88,13 +88,13 @@
         <serviceTask id="sid-58F18100-CA85-4D93-85F6-D61058913735" name="Send failure email" flowable:type="mail">
             <extensionElements>
                 <flowable:field name="to">
-                    <flowable:string><![CDATA[test@blah.com]]></flowable:string>
+                    <flowable:string>zhuxc@joyowo.com</flowable:string>
                 </flowable:field>
                 <flowable:field name="from">
-                    <flowable:string><![CDATA[no-reply@activiti.com]]></flowable:string>
+                    <flowable:string>819578393@qq.com</flowable:string>
                 </flowable:field>
-                <flowable:field name="html">
-                    <flowable:string><![CDATA[Sorry, it didn't work out]]></flowable:string>
+                <flowable:field name="text">
+                    <flowable:string>This is email content</flowable:string>
                 </flowable:field>
             </extensionElements>
         </serviceTask>
