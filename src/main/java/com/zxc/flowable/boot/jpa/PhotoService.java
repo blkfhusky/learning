@@ -1,4 +1,4 @@
-package com.zxc.flowable.boot;
+package com.zxc.flowable.boot.jpa;
 
 import org.flowable.engine.ProcessEngine;
 import org.flowable.engine.RuntimeService;

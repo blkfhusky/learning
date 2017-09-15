@@ -1,4 +1,4 @@
-package com.zxc.flowable.boot;
+package com.zxc.flowable.boot.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
