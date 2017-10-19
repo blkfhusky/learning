@@ -1,0 +1,11 @@
+server:
+  port: 8088
+
+spring:
+  output:
+    ansi:
+      enabled: always
+  profiles:
+    active: dev
+  application:
+    name: learning
